@@ -29,9 +29,9 @@ def show_visualizations(df):
     st.plotly_chart(fig2)
 
     # Visualization: Fuel Type vs Price
-    st.subheader("Fuel Type vs Price")
-    fig3 = px.box(df, x='FuelType', y='Price', title="Fuel Type vs Price")
-    st.plotly_chart(fig3)
+    # st.subheader("Fuel Type vs Price")
+    # fig3 = px.box(df, x='FuelType', y='Price', title="Fuel Type vs Price")
+    # st.plotly_chart(fig3)
 
 # Preprocess the input data
 def preprocess_input(data, model):
@@ -138,9 +138,8 @@ def mainn():
 
             # Show visualizations
             show_visualizations(df_cleaned)
-            visualize_correlations(df_cleaned)
             additional_visualizations(df_cleaned)
-
+            visualize_correlations(df_cleaned)
         
 
             
