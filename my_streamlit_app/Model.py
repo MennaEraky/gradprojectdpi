@@ -69,41 +69,7 @@ def clean_data(df):
     
     return df
 
-# Create a function to visualize correlations
-def visualize_correlations(df):
-    # Calculate the correlation matrix
-    correlation = df.corr()
-    correlation_with_price = correlation['Price']
-    
-    # Plot correlation
-    st.subheader("Correlation with Price")
-    st.write(correlation_with_price)
 
-    # Heatmap of the correlation matrix
-    fig = px.imshow(correlation, text_auto=True, aspect="auto", title="Correlation Heatmap")
-    st.plotly_chart(fig)
-
-# Create additional visualizations
-def additional_visualizations(df):
-    st.subheader("Price vs Engine Size")
-    fig_engine = px.scatter(df, x='Engine', y='Price', title='Price vs Engine Size', 
-                             labels={'Engine': 'Engine Size (L)', 'Price': 'Price'},
-                             trendline='ols')
-    st.plotly_chart(fig_engine)
-
-    st.subheader("Price vs Number of Cylinders")
-    fig_cylinders = px.box(df, x='CylindersinEngine', y='Price', 
-                            title='Price Distribution by Number of Cylinders',
-                            labels={'CylindersinEngine': 'Cylinders in Engine', 'Price': 'Price'})
-    st.plotly_chart(fig_cylinders)
-
-    st.subheader("Price vs Fuel Consumption")
-    fig_fuel = px.scatter(df, x='FuelConsumption', y='Price', title='Price vs Fuel Consumption',
-                          labels={'FuelConsumption': 'Fuel Consumption (L/100 km)', 'Price': 'Price'},
-                          trendline='ols')
-    st.plotly_chart(fig_fuel)
-
-# Visualize model performance metrics
 def visualize_model_performance():
     models = [
         "LinearRegression",
