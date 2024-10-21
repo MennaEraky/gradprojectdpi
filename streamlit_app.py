@@ -83,8 +83,6 @@ elif page == "Visualizations":
 elif page == "Model":
     st.title("🤖 Model")
     
-    st.set_page_config(page_title="Vehicle Price Prediction", page_icon="🚗", layout="wide")
-    st.title("🚗 Vehicle Price Prediction App")
     st.write("Enter the vehicle details below to predict its price.")
 
     col1, col2 = st.columns(2)
