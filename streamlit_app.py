@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 from my_streamlit_app.Model import *
-from my_streamlit_app.Visualizations import show_visualizations,*
+from my_streamlit_app.Visualizations import *
 
 # Set page configuration
 st.set_page_config(
