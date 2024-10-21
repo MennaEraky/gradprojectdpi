@@ -191,13 +191,7 @@ def main():
         except Exception as e:
             st.error(f"An error occurred during prediction: {e}")
 
-    # Load the dataset and preprocess it for visualization
-    if dataset_file is not None:
-        df = load_dataset(dataset_file)
-        if df is not None:
-            df_cleaned = clean_data(df)
 
-            # Display visualizations
             visualize_model_performance()
 
 if __name__ == "__main__":
