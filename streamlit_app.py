@@ -153,8 +153,8 @@ elif page == "Model":
     # Load model from Google Drive
     def load_model_from_drive(file_id):
         url = f'https://drive.google.com/uc?id={file_id}'
-        gdown.download(url, 'model.pkl', quiet=False)
-        with open('model.pkl', 'rb') as file:
+        gdown.download(url, 'vehicle_price_model.pkl', quiet=False)
+        with open('vehicle_price_model.pkl', 'rb') as file:
             model = pickle.load(file)
         return model
 
