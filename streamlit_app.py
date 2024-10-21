@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from my_streamlit_app.Model import load_model_from_drive, preprocess_input
+from my_streamlit_app.Model import *
 from my_streamlit_app.Visualizations import show_visualizations
 # Set page configuration
 st.set_page_config(
@@ -107,3 +107,6 @@ elif page == "Model":
         preprocessed_input = preprocess_input(input_data, model)
         prediction = model.predict(preprocessed_input)
         st.write(f"Predicted Price: ${prediction[0]:,.2f}")
+        visualize_correlations(preprocessed_input)
+        additional_visualizations(preprocessed_input)
+        visualize_model_performance()
