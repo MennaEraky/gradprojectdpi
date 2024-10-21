@@ -279,9 +279,8 @@ elif page == "Model":
             st.error(f"An error occurred during prediction: {e}")
 
     # Load the dataset and visualize correlations
-    dataset_file = st.file_uploader("Upload a CSV file containing vehicle data 📂", type="csv")
     if dataset_file is not None:
-        df = load_dataset(dataset_file)
+        df = load_dataset(df)
         df_cleaned = clean_data(df)
 
         # Display visualizations
