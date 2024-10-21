@@ -16,7 +16,7 @@ page = st.sidebar.radio("Go to", ["Home", "Visualizations", "Model"])
 # Main content based on the selected page
 if page == "Home":
     st.title("Australian Vehicle Prices")
-    st.image("https://raw.githubusercontent.com/mohamedseif-10/Graduation-project-DEPI/main/web_app/Background.jpg", use_column_width=True)
+    st.image("porsche-911-sally-cars-1.jpg", use_column_width=True)
 
     st.markdown(
         """
