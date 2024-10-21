@@ -29,8 +29,8 @@ if page == "Home":
 
             <h2 style='font-size: 2em;'>🔑 Key Features</h2>
             <ul style='font-size: 2em;'>
-                <li style='font-size: .9em;'><strong>Brand</strong>: 🚗 Name of the car manufacturer</li>
-                <li style='font-size: .9em;'><strong>Year</strong>: 📅 Year of manufacture or release</li>
+                <li style='font-size: .8em;'><strong>Brand</strong>: 🚗 Name of the car manufacturer</li>
+                <li style='font-size: .8em;'><strong>Year</strong>: 📅 Year of manufacture or release</li>
                 <li style='font-size: .9em;'><strong>Model</strong>: 🏷️ Name or code of the car model</li>
                 <li style='font-size: .9em;'><strong>Car/Suv</strong>: 🚙 Type of the car (car or suv)</li>
                 <li style='font-size: .9em;'><strong>Title</strong>: 📝 Title or description of the car</li>
