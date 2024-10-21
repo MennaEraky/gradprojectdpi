@@ -29,25 +29,25 @@ if page == "Home":
 
             <h2 style='font-size: 2em;'>🔑 Key Features</h2>
             <ul style='font-size: 2em;'>
-                <li style='font-size: .8em;'><strong>Brand</strong>: 🚗 Name of the car manufacturer</li>
-                <li style='font-size: .8em;'><strong>Year</strong>: 📅 Year of manufacture or release</li>
-                <li style='font-size: .9em;'><strong>Model</strong>: 🏷️ Name or code of the car model</li>
-                <li style='font-size: .9em;'><strong>Car/Suv</strong>: 🚙 Type of the car (car or suv)</li>
-                <li style='font-size: .9em;'><strong>Title</strong>: 📝 Title or description of the car</li>
-                <li style='font-size: .9em;'><strong>UsedOrNew</strong>: 🔄 Condition of the car (used or new)</li>
-                <li style='font-size: .9em;'><strong>Transmission</strong>: ⚙️ Type of transmission (manual or automatic)</li>
-                <li style='font-size: .9em;'><strong>Engine</strong>: 🛠️ Engine capacity or power (in litres or kilowatts)</li>
-                <li style='font-size: .9em;'><strong>DriveType</strong>: 🚘 Type of drive (front-wheel, rear-wheel, or all-wheel)</li>
-                <li style='font-size: .9em;'><strong>FuelType</strong>: ⛽ Type of fuel (petrol, diesel, hybrid, or electric)</li>
-                <li style='font-size: .9em;'><strong>FuelConsumption</strong>: 📊 Fuel consumption rate (in litres per 100 km)</li>
-                <li style='font-size: .9em;'><strong>Kilometres</strong>: 🛣️ Distance travelled by the car (in kilometres)</li>
-                <li style='font-size: .9em;'><strong>ColourExtInt</strong>: 🎨 Colour of the car (exterior and interior)</li>
-                <li style='font-size: .9em;'><strong>Location</strong>: 📍 Location of the car (city and state)</li>
-                <li style='font-size: .9em;'><strong>CylindersinEngine</strong>: 🔧 Number of cylinders in the engine</li>
-                <li style='font-size: .9em;'><strong>BodyType</strong>: 🚙 Shape or style of the car body (sedan, hatchback, coupe, etc.)</li>
-                <li style='font-size: .9em;'><strong>Doors</strong>: 🚪 Number of doors in the car</li>
-                <li style='font-size: .9em;'><strong>Seats</strong>: 🪑 Number of seats in the car</li>
-                <li style='font-size: .9em;'><strong>Price</strong>: 💰 Price of the car (in Australian dollars)</li>
+                <li style='font-size: .7em;'><strong>Brand</strong>: 🚗 Name of the car manufacturer</li>
+                <li style='font-size: .7em;'><strong>Year</strong>: 📅 Year of manufacture or release</li>
+                <li style='font-size: .7em;'><strong>Model</strong>: 🏷️ Name or code of the car model</li>
+                <li style='font-size: .7em;'><strong>Car/Suv</strong>: 🚙 Type of the car (car or suv)</li>
+                <li style='font-size: .7em;'><strong>Title</strong>: 📝 Title or description of the car</li>
+                <li style='font-size: .7em;'><strong>UsedOrNew</strong>: 🔄 Condition of the car (used or new)</li>
+                <li style='font-size: .7em;'><strong>Transmission</strong>: ⚙️ Type of transmission (manual or automatic)</li>
+                <li style='font-size: .7em;'><strong>Engine</strong>: 🛠️ Engine capacity or power (in litres or kilowatts)</li>
+                <li style='font-size: .7em;'><strong>DriveType</strong>: 🚘 Type of drive (front-wheel, rear-wheel, or all-wheel)</li>
+                <li style='font-size: .7em;'><strong>FuelType</strong>: ⛽ Type of fuel (petrol, diesel, hybrid, or electric)</li>
+                <li style='font-size: .7em;'><strong>FuelConsumption</strong>: 📊 Fuel consumption rate (in litres per 100 km)</li>
+                <li style='font-size: .7em;'><strong>Kilometres</strong>: 🛣️ Distance travelled by the car (in kilometres)</li>
+                <li style='font-size: .7em;'><strong>ColourExtInt</strong>: 🎨 Colour of the car (exterior and interior)</li>
+                <li style='font-size: .7em;'><strong>Location</strong>: 📍 Location of the car (city and state)</li>
+                <li style='font-size: .7em;'><strong>CylindersinEngine</strong>: 🔧 Number of cylinders in the engine</li>
+                <li style='font-size: .7em;'><strong>BodyType</strong>: 🚙 Shape or style of the car body (sedan, hatchback, coupe, etc.)</li>
+                <li style='font-size: .7em;'><strong>Doors</strong>: 🚪 Number of doors in the car</li>
+                <li style='font-size: .7em;'><strong>Seats</strong>: 🪑 Number of seats in the car</li>
+                <li style='font-size: .7em;'><strong>Price</strong>: 💰 Price of the car (in Australian dollars)</li>
             </ul>
             
             <h2 style='font-size: 2em;'>🚀 Potential Use Cases</h2>
