@@ -31,7 +31,4 @@ def show_visualizations(df):
     fig3 = px.box(df, x='FuelType', y='Price', title="Fuel Type vs Price")
     st.plotly_chart(fig3)
 
-    # Visualization: Year vs Price
-    st.subheader("Year vs Price")
-    fig4 = px.line(df, x='Year', y='Price', title="Year vs Price")
-    st.plotly_chart(fig4)
+ 
