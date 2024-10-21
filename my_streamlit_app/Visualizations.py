@@ -129,7 +129,7 @@ def load_model_from_drive(model_file_id):
     return model
 
 # Main Streamlit app
-def main():
+def mainn():
     # Load the dataset and preprocess it for visualization
     dataset_file = st.file_uploader("Upload a CSV file containing vehicle data 📂", type="csv")
     if dataset_file is not None:
@@ -147,4 +147,4 @@ def main():
             
 
 if __name__ == "__main__":
-    main()
+    mainn()
