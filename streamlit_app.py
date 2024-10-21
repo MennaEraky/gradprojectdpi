@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 from my_streamlit_app.Model import *
-from my_streamlit_app.Visualizations import show_visualizations
+from my_streamlit_app.Visualizations import show_visualizations,*
 
 # Set page configuration
 st.set_page_config(
@@ -79,7 +79,7 @@ if page == "Home":
 
 elif page == "Visualizations":
     if __name__ == "__main__":
-        main1()
+        main()
 
 elif page == "Model":
     st.title("🤖 Model")
