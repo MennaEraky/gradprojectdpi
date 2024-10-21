@@ -78,7 +78,8 @@ if page == "Home":
         st.markdown('</div>', unsafe_allow_html=True)
 
 elif page == "Visualizations":
-    show_visualizations(df)
+    if __name__ == "__main__":
+        main()
 
 elif page == "Model":
     st.title("🤖 Model")
