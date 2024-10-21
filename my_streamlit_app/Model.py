@@ -70,6 +70,40 @@ def clean_data(df):
     
     return df
 
+# Create a function to visualize correlations
+def visualize_correlations(df):
+    # Calculate the correlation matrix
+    correlation = df.corr()
+    correlation_with_price = correlation['Price']
+    
+    # Plot correlation
+    st.subheader("Correlation with Price")
+    st.write(correlation_with_price)
+
+    # Heatmap of the correlation matrix
+    fig = px.imshow(correlation, text_auto=True, aspect="auto", title="Correlation Heatmap")
+    st.plotly_chart(fig)
+
+# Create additional visualizations
+def additional_visualizations(df):
+    st.subheader("Price vs Engine Size")
+    fig_engine = px.scatter(df, x='Engine', y='Price', title='Price vs Engine Size', 
+                             labels={'Engine': 'Engine Size (L)', 'Price': 'Price'},
+                             trendline='ols')
+    st.plotly_chart(fig_engine)
+
+    st.subheader("Price vs Number of Cylinders")
+    fig_cylinders = px.box(df, x='CylindersinEngine', y='Price', 
+                            title='Price Distribution by Number of Cylinders',
+                            labels={'CylindersinEngine': 'Cylinders in Engine', 'Price': 'Price'})
+    st.plotly_chart(fig_cylinders)
+
+    st.subheader("Price vs Fuel Consumption")
+    fig_fuel = px.scatter(df, x='FuelConsumption', y='Price', title='Price vs Fuel Consumption',
+                          labels={'FuelConsumption': 'Fuel Consumption (L/100 km)', 'Price': 'Price'},
+                          trendline='ols')
+    st.plotly_chart(fig_fuel)
+
 # Visualize model performance metrics
 def visualize_model_performance():
     models = [
@@ -124,51 +158,89 @@ def visualize_model_performance():
     st.plotly_chart(fig_performance)
     
     # Display model with largest accuracy
-    st.write(f"The model with the highest accuracy is: **{max_accuracy_model['Model']}** with a score of **{max_accuracy_model['Mean CrossVal Score']:.2f}**")
+    st.markdown(f"""
+        <div style="font-size: 20px; padding: 10px; background-color: #e8f5e9; border: 2px solid #4caf50; border-radius: 5px;">
+            <strong>Best Model:</strong> {max_accuracy_model['Model']} with Mean CrossVal Score: {max_accuracy_model['Mean CrossVal Score']:.2f}
+        </div>
+    """, unsafe_allow_html=True)
 
-# Model prediction page content
-if page == "Model":
-    st.title("🤖 Model")
-    st.write("Use the form below to predict vehicle prices based on selected features.")
-    
-    # Load model
-    model_id = '11btPBNR74na_NjjnjrrYT8RSf8ffiumo'  # Replace with your Google Drive file ID
-    model = load_model_from_drive(model_id)
+# Main Streamlit app
+# Main Streamlit app
+# Main Streamlit app
+def main():
+    st.set_page_config(page_title="Vehicle Price Prediction", page_icon="🚗", layout="wide")
+    st.title("🚗 Vehicle Price Prediction App")
+    st.write("Enter the vehicle details below to predict its price.")
 
-    # User inputs
-    st.sidebar.header("Input Features")
-    
-    year = st.sidebar.number_input("Year", min_value=1990, max_value=2023, value=2020)
-    used_or_new = st.sidebar.selectbox("Condition", ["New", "Used"])
-    transmission = st.sidebar.selectbox("Transmission", ["Manual", "Automatic"])
-    engine = st.sidebar.number_input("Engine Size (in litres)", min_value=0.1, value=2.0)
-    drive_type = st.sidebar.selectbox("Drive Type", ["Front", "Rear", "All-Wheel"])
-    fuel_type = st.sidebar.selectbox("Fuel Type", ["Petrol", "Diesel", "Electric", "Hybrid"])
-    fuel_consumption = st.sidebar.number_input("Fuel Consumption (L/100 km)", min_value=0.1, value=8.0)
-    kilometres = st.sidebar.number_input("Kilometres Driven", min_value=0, value=50000)
-    cylinders_in_engine = st.sidebar.number_input("Cylinders in Engine", min_value=1, value=4)
-    body_type = st.sidebar.selectbox("Body Type", ["Sedan", "Hatchback", "SUV", "Coupe", "Wagon", "Van"])
-    doors = st.sidebar.number_input("Number of Doors", min_value=2, max_value=5, value=4)
-    
-    input_data = {
-        "Year": year,
-        "UsedOrNew": used_or_new,
-        "Transmission": transmission,
-        "Engine": engine,
-        "DriveType": drive_type,
-        "FuelType": fuel_type,
-        "FuelConsumption": fuel_consumption,
-        "Kilometres": kilometres,
-        "CylindersinEngine": cylinders_in_engine,
-        "BodyType": body_type,
-        "Doors": doors
-    }
-    
-    # Prediction button
-    if st.sidebar.button("Predict Price"):
-        preprocessed_input = preprocess_input(input_data, model)
-        predicted_price = model.predict(preprocessed_input)
-        st.success(f"The predicted price for the vehicle is: **${predicted_price[0]:,.2f}**")
-    
-    # Visualize model performance metrics
-    visualize_model_performance()
+    col1, col2 = st.columns(2)
+
+    with col1:
+        year = st.number_input("Year 📅", min_value=1900, max_value=2024, value=2020, key="year")
+        used_or_new = st.selectbox("Used or New 🏷", ["Used", "New"], key="used_or_new")
+        transmission = st.selectbox("Transmission ⚙", ["Manual", "Automatic"], key="transmission")
+        engine = st.number_input("Engine Size (L) 🔧", min_value=0.0, value=2.0, step=0.1, key="engine")
+        drive_type = st.selectbox("Drive Type 🛣", ["FWD", "RWD", "AWD"], key="drive_type")
+        fuel_type = st.selectbox("Fuel Type ⛽", ["Petrol", "Diesel", "Electric", "Hybrid"], key="fuel_type")
+
+    with col2:
+        fuel_consumption = st.number_input("Fuel Consumption (L/100km) ⛽", min_value=0.0, value=8.0, step=0.1, key="fuel_consumption")
+        kilometres = st.number_input("Kilometres 🛣", min_value=0, value=50000, step=1000, key="kilometres")
+        cylinders_in_engine = st.number_input("Cylinders in Engine 🔢", min_value=1, value=4, key="cylinders_in_engine")
+        body_type = st.selectbox("Body Type 🚙", ["Sedan", "SUV", "Hatchback", "Coupe", "Convertible"], key="body_type")
+        doors = st.selectbox("Number of Doors 🚪", [2, 3, 4, 5], key="doors")
+
+    # Load model only once and store in session state
+    if 'model' not in st.session_state:
+        model_file_id = '11btPBNR74na_NjjnjrrYT8RSf8ffiumo'  # Google Drive file ID for model
+        st.session_state.model = load_model_from_drive(model_file_id)
+
+    # Make prediction automatically based on inputs
+    if st.session_state.model is not None:
+        input_data = {
+            'Year': year,
+            'UsedOrNew': used_or_new,
+            'Transmission': transmission,
+            'Engine': engine,
+            'DriveType': drive_type,
+            'FuelType': fuel_type,
+            'FuelConsumption': fuel_consumption,
+            'Kilometres': kilometres,
+            'CylindersinEngine': cylinders_in_engine,
+            'BodyType': body_type,
+            'Doors': doors
+        }
+        input_df = preprocess_input(input_data, st.session_state.model)
+
+        try:
+            prediction = st.session_state.model.predict(input_df)
+
+            # Styled prediction display
+            st.markdown(f"""
+                <div style="font-size: 24px; padding: 10px; background-color: #f0f4f8; border: 2px solid #3e9f7d; border-radius: 5px; text-align: center;">
+                    <strong>Predicted Price:</strong> ${prediction[0]:,.2f}
+                </div>
+            """, unsafe_allow_html=True)
+
+            # Displaying input data and prediction as a table
+            st.subheader("Input Data and Prediction")
+            input_data['Predicted Price'] = f"${prediction[0]:,.2f}"
+            input_df_display = pd.DataFrame(input_data, index=[0])
+            st.dataframe(input_df_display)
+
+        except Exception as e:
+            st.error(f"An error occurred during prediction: {e}")
+
+    # Load the dataset and preprocess it for visualization
+    dataset_file = st.file_uploader("Upload a CSV file containing vehicle data 📂", type="csv")
+    if dataset_file is not None:
+        df = load_dataset(dataset_file)
+        if df is not None:
+            df_cleaned = clean_data(df)
+
+            # Display visualizations
+            visualize_correlations(df_cleaned)
+            additional_visualizations(df_cleaned)
+            visualize_model_performance()
+
+if __name__ == "__main__":
+    main()
