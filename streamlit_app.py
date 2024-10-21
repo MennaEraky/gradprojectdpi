@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from my_streamlit_app.Model import *
 from my_streamlit_app.Visualizations import show_visualizations
+
 # Set page configuration
 st.set_page_config(
     page_title="Australian Vehicle Prices",
@@ -37,10 +38,8 @@ if page == "Home":
             """
             <h2>📊 Overview</h2>
             <p>A comprehensive dataset for exploring the car market in Australia.</p>
-
             <h2>ℹ About Dataset</h2>
             <p><strong>Description:</strong> This dataset contains the latest information on car prices in Australia for the year 2023. It covers various brands, models, types, and features of cars sold in the Australian market. It provides useful insights into the trends and factors influencing the car prices in Australia. The dataset includes information such as brand, year, model, car/suv, title, used/new, transmission, engine, drive type, fuel type, fuel consumption, kilometres, colour (exterior/interior), location, cylinders in engine, body type, doors, seats, and price. The dataset has over 16,000 records of car listings from various online platforms in Australia.</p>
-
             <h2>🔑 Key Features</h2>
             <ul>
                 <li><strong>Brand</strong>: 🚗 Name of the car manufacturer</li>
@@ -63,7 +62,6 @@ if page == "Home":
                 <li><strong>Seats</strong>: 🪑 Number of seats in the car</li>
                 <li><strong>Price</strong>: 💰 Price of the car (in Australian dollars)</li>
             </ul>
-
             <h2>🚀 Potential Use Cases</h2>
             <ul>
                 <li><strong>Price prediction</strong>: Predict the price of a car based on its features and location using machine learning models.</li>
@@ -90,8 +88,21 @@ elif page == "Model":
 
     # Input fields
     st.subheader("Enter Car Details:")
-    input_data = {}
- # Create input data dictionary
+    
+    # Input fields for car details
+    year = st.number_input("Year", min_value=1900, max_value=2023, value=2023)
+    used_or_new = st.selectbox("Condition", ["Used", "New"])
+    transmission = st.selectbox("Transmission", ["Manual", "Automatic"])
+    engine = st.number_input("Engine (in litres)", min_value=0.0, max_value=10.0, step=0.1)
+    drive_type = st.selectbox("Drive Type", ["Front", "Rear", "All"])
+    fuel_type = st.selectbox("Fuel Type", ["Petrol", "Diesel", "Hybrid", "Electric"])
+    fuel_consumption = st.number_input("Fuel Consumption (litres per 100 km)", min_value=0.0, max_value=20.0, step=0.1)
+    kilometres = st.number_input("Kilometres", min_value=0)
+    cylinders_in_engine = st.number_input("Cylinders in Engine", min_value=1, max_value=12)
+    body_type = st.selectbox("Body Type", ["Sedan", "Hatchback", "SUV", "Coupe", "Wagon", "Ute"])
+    doors = st.number_input("Doors", min_value=2, max_value=5)
+
+    # Create input data dictionary
     input_data = {
         'Year': year,
         'UsedOrNew': used_or_new,
@@ -105,6 +116,7 @@ elif page == "Model":
         'BodyType': body_type,
         'Doors': doors
     }
+
     if st.button("Predict Price"):
         preprocessed_input = preprocess_input(input_data, model)
         prediction = model.predict(preprocessed_input)
