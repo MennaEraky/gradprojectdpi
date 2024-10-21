@@ -1,8 +1,7 @@
 import streamlit as st
 import pandas as pd
-from Model import load_model, preprocess_input
-from visualization import show_visualizations
-
+from my_streamlit_app.Model import load_model, preprocess_input
+from my_streamlit_app.visualization import show_visualizations
 # Set page configuration
 st.set_page_config(
     page_title="Australian Vehicle Prices",
