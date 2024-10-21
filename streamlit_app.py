@@ -78,6 +78,7 @@ if page == "Home":
         st.markdown('</div>', unsafe_allow_html=True)
 
 elif page == "Visualizations":
+    st.title("📈 Visualizations")
     if __name__ == "__main__":
         mainn()
 
