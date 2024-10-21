@@ -137,9 +137,9 @@ def mainn():
             df_cleaned = clean_data(df)
 
             # Show visualizations
-            visualize_correlations(df_cleaned)
             show_visualizations(df_cleaned)
             additional_visualizations(df_cleaned)
+            visualize_correlations(df_cleaned)
 
         
 
