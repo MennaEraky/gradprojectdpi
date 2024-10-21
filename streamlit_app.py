@@ -57,6 +57,9 @@ if page == "Home":
                 <li style='font-size: 1.4em;'><strong>Feature analysis 📊 </strong>: Identify the most important features that affect car prices and how they vary across different brands, models, and locations using correlation and regression analysis.</li>
             </ul>
 
+            <h2 style='font-size: 2em;'>🔗 Dataset Link</h2>
+            <p style='font-size: 1.25em;'>You can find the dataset on Kaggle: <a href="https://www.kaggle.com/datasets/nelgiriyewithana/australian-vehicle-prices/data" target="_blank">Kaggle Dataset</a></p>
+
             """,
             unsafe_allow_html=True,
         )
