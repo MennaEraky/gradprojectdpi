@@ -11,49 +11,49 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# Load the dataset
-data_url = "Australian Vehicle Prices.csv"  # Update with your actual file path
-df = pd.read_csv(data_url)
+# Add CSS for larger font sizes
+st.markdown(
+    """
+    <style>
+        body {
+            font-size: 1.5em;  /* Adjust the base font size */
+        }
+        h1 {
+            font-size: 2.5em;  /* Title size */
+        }
+        h2 {
+            font-size: 2em;    /* Section header size */
+        }
+        p {
+            font-size: 1.25em; /* Paragraph text size */
+        }
+        ul {
+            font-size: 1.25em; /* List item text size */
+        }
+        .image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
 # Sidebar Navigation
 st.sidebar.title("Navigation")
 page = st.sidebar.radio("Go to", ["Home", "Visualizations", "Model"])
 
+# Load the dataset
+data_url = "path_to_your_file/Australian Vehicle Prices.csv"  # Update with your actual file path
+df = pd.read_csv(data_url)
+
 # Main content based on the selected page
 if page == "Home":
-    # Add CSS for larger font sizes and center image
-    st.markdown(
-        """
-        <style>
-            body {
-                font-size: 1.5em;  /* Adjust the base font size */
-            }
-            h1 {
-                font-size: 2.5em;  /* Title size */
-            }
-            h2 {
-                font-size: 2em;    /* Section header size */
-            }
-            p {
-                font-size: 1.25em; /* Paragraph text size */
-            }
-            ul {
-                font-size: 1.25em; /* List item text size */
-            }
-            .image-container {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
-
     st.markdown("<h1>🚗 Australian Vehicle Prices</h1>", unsafe_allow_html=True)
 
     # Layout for text and image
-    col1, col2 = st.columns([2, 2])  # 2 parts for text, 1 part for image
+    col1, col2 = st.columns([2, 1])  # 2 parts for text, 1 part for image
 
     with col1:
         st.markdown(
