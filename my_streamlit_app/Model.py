@@ -22,39 +22,44 @@ def load_model_from_drive(file_id):
 
 
 # Preprocess the input data
+
+# Preprocess the input data
 def preprocess_input(input_data, model):
-    # Create a DataFrame from the input data
-    df = pd.DataFrame([input_data])
+    # Create DataFrame from input data
+    df = pd.DataFrame([input_data])  # Wrap input_data in a list to create a DataFrame
 
     # Replace certain values with NaN
     df.replace(['POA', '-', '- / -'], np.nan, inplace=True)
-    
+
     # Convert relevant columns to numeric
-    df['FuelConsumption'] = pd.to_numeric(df['FuelConsumption'], errors='coerce')
-    df['Doors'] = pd.to_numeric(df['Doors'], errors='coerce').fillna(0).astype(int)
-    df['CylindersinEngine'] = pd.to_numeric(df['CylindersinEngine'], errors='coerce').fillna(0).astype(int)
-    df['Engine'] = pd.to_numeric(df['Engine'], errors='coerce').fillna(0).astype(int)
-    
+    df['Kilometres'] = pd.to_numeric(df['Kilometres'], errors='coerce')
+
+    # Extract numeric values from string columns
+    df['FuelConsumption'] = df['FuelConsumption'].str.extract(r'(\d+\.\d+)').astype(float)
+    df['Doors'] = df['Doors'].str.extract(r'(\d+)').fillna(0).astype(int)
+    df['CylindersinEngine'] = df['CylindersinEngine'].str.extract(r'(\d+)').fillna(0).astype(int)
+    df['Engine'] = df['Engine'].str.extract(r'(\d+)').fillna(0).astype(int)
+
     # Fill NaN values for specific columns
-    df.fillna(df.median(), inplace=True)
-    
+    df[['Kilometres', 'FuelConsumption']] = df[['Kilometres', 'FuelConsumption']].fillna(df[['Kilometres', 'FuelConsumption']].median())
+    df.dropna(subset=['Year', 'Kilometres'], inplace=True)
+
     # Drop unnecessary columns
-    df.drop(columns=['Brand', 'Model', 'Car/Suv', 'Title', 'Location', 'ColourExtInt', 'Seats'], inplace=True, errors='ignore')
+    df.drop(columns=['Brand', 'Model', 'Car/Suv', 'Title', 'Location', 'ColourExtInt', 'Seats'], inplace=True)
 
     # Label encoding for categorical features
     label_encoder = LabelEncoder()
     for col in df.select_dtypes(include=['object']).columns:
         df[col] = label_encoder.fit_transform(df[col])
-        
+
     # One-Hot Encoding for categorical features based on the training model's features
     input_df_encoded = pd.get_dummies(df, drop_first=True)
 
     # Reindex to ensure it matches the model's expected input
     model_features = model.feature_names_in_  # Get the features used during training
     input_df_encoded = input_df_encoded.reindex(columns=model_features, fill_value=0)  # Fill missing columns with 0
- 
-    return input_df_encoded
 
+    return input_df_encoded
 # Load the dataset from Google Drive
 def load_dataset(file):
     try:
