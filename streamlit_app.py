@@ -94,3 +94,4 @@ elif page == "Visualizations":
 elif page == "Model":
     st.title("🤖 Model")
     st.write("This page will contain the model for predicting car prices.")
+
