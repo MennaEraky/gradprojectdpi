@@ -16,7 +16,7 @@ st.markdown(
     """
     <style>
         body {
-            font-size: 1.5em;  /* Adjust the base font size */
+            font-size: 1.2em;  /* Adjust the base font size */
         }
         h1 {
             font-size: 2.5em;  /* Title size */
@@ -25,10 +25,10 @@ st.markdown(
             font-size: 2em;    /* Section header size */
         }
         p {
-            font-size: 1.25em; /* Paragraph text size */
+            font-size: 1em; /* Paragraph text size */
         }
         ul {
-            font-size: 1.25em; /* List item text size */
+            font-size: 1.6em; /* List item text size */
         }
         .image-container {
             display: flex;
@@ -49,8 +49,6 @@ page = st.sidebar.radio("Go to", ["Home", "Visualizations", "Model"])
 data_url = "Australian Vehicle Prices.csv"  # Update with your actual file path
 df = pd.read_csv(data_url)
 
-# Check the data types
-st.write(df.dtypes)
 
 # Convert 'Price' column to numeric
 df['Price'] = pd.to_numeric(df['Price'], errors='coerce')
