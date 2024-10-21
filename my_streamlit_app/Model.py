@@ -132,7 +132,7 @@ if page == "Model":
     st.write("Use the form below to predict vehicle prices based on selected features.")
     
     # Load model
-    model_id = 'your_google_drive_model_id_here'  # Replace with your Google Drive file ID
+    model_id = '11btPBNR74na_NjjnjrrYT8RSf8ffiumo'  # Replace with your Google Drive file ID
     model = load_model_from_drive(model_id)
 
     # User inputs
