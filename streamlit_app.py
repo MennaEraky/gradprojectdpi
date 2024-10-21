@@ -45,9 +45,22 @@ st.sidebar.title("Navigation")
 page = st.sidebar.radio("Go to", ["Home", "Visualizations", "Model"])
 
 # Load the dataset
-data_url = "Australian Vehicle Prices.csv"
-  # Update with your actual file path
+# Load the dataset
+data_url = "path_to_your_file/Australian Vehicle Prices.csv"  # Update with your actual file path
 df = pd.read_csv(data_url)
+
+# Check the data types
+st.write(df.dtypes)
+
+# Convert 'Price' column to numeric
+df['Price'] = pd.to_numeric(df['Price'], errors='coerce')
+
+# Drop NaN values from 'Price' column
+df.dropna(subset=['Price'], inplace=True)
+
+# Now perform the groupby operation
+price_by_year = df.groupby('Year')['Price'].mean()  # Adjusted to show mean price
+
 
 # Main content based on the selected page
 if page == "Home":
