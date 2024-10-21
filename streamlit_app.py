@@ -15,7 +15,6 @@ st.set_page_config(
 st.sidebar.title("Navigation")
 page = st.sidebar.radio("Go to", ["Home", "Visualizations", "Model"])
 
-
 # Load the dataset
 data_url = "Australian Vehicle Prices.csv"  # Update with your actual file path
 df = pd.read_csv(data_url)
@@ -66,11 +65,9 @@ if page == "Home":
                 <li><strong>Market analysis</strong>: Explore the market trends and demand for different types of cars in Australia using descriptive statistics and visualization techniques.</li>
                 <li><strong>Feature analysis</strong>: Identify the most important features that affect car prices and how they vary across different brands, models, and locations using correlation and regression analysis.</li>
             </ul>
+            <h2>Kaggle Dataset Link</h2>
+            <p>Dataset: <a href="https://www.kaggle.com/datasets/nelgiriyewithana/australian-vehicle-prices" target="_blank">Australian Vehicle Prices on Kaggle</a></p>
             """,
-             <h2>Kaggle Dataset Link</h2>
-        <p>Dataset: <a href="https://www.kaggle.com/datasets/nelgiriyewithana/australian-vehicle-prices" target="_blank">Australian Vehicle Prices on Kaggle</a></p>
-
-
             unsafe_allow_html=True,
         )
 
@@ -78,7 +75,7 @@ if page == "Home":
         st.markdown('<div class="image-container">', unsafe_allow_html=True)
         st.image("https://raw.githubusercontent.com/MennaEraky/gradprojectdpi/main/porsche-911-sally-cars-1.jpg", use_column_width=True)
         st.markdown('</div>', unsafe_allow_html=True)
-       
+
 elif page == "Visualizations":
     st.title("📈 Visualizations")
     if __name__ == "__main__":
