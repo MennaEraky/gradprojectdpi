@@ -1,3 +1,12 @@
+import streamlit as st
+import pandas as pd
+import numpy as np
+import pickle
+import gdown
+import plotly.express as px
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.preprocessing import LabelEncoder
+
 def load_model_from_drive(file_id):
     output = 'vehicle_price_model.pkl'
     try:
