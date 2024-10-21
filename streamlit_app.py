@@ -13,31 +13,7 @@ page = st.sidebar.radio("Go to", ["Home", "Visualizations", "Model"])
 
 # Main content based on the selected page
 if page == "Home":
-    # Add CSS for larger font sizes
-    st.markdown(
-        """
-        <style>
-            body {
-                font-size: 1.5em;  /* Adjust the base font size */
-            }
-            h1 {
-                font-size: 2.5em;  /* Title size */
-            }
-            h2 {
-                font-size: 2em;    /* Section header size */
-            }
-            p {
-                font-size: 1.25em; /* Paragraph text size */
-            }
-            ul {
-                font-size: 1.25em; /* List item text size */
-            }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    st.markdown("<h1>🚗 Australian Vehicle Prices</h1>", unsafe_allow_html=True)
+    st.title("<h1 style='font-size: 2.5em;'>🚗 Australian Vehicle Prices</h1>", unsafe_allow_html=True)
 
     # Layout for text and image
     col1, col2 = st.columns([2, 1])  # 2 parts for text, 1 part for image
@@ -45,14 +21,14 @@ if page == "Home":
     with col1:
         st.markdown(
             """
-            <h2>📊 Overview</h2>
-            <p>A comprehensive dataset for exploring the car market in Australia.</p>
+            <h2 style='font-size: 2em;'>📊 Overview</h2>
+            <p style='font-size: 1.25em;'>A comprehensive dataset for exploring the car market in Australia.</p>
 
-            <h2>ℹ️ About Dataset</h2>
-            <p><strong>Description:</strong> This dataset contains the latest information on car prices in Australia for the year 2023. It covers various brands, models, types, and features of cars sold in the Australian market. It provides useful insights into the trends and factors influencing the car prices in Australia. The dataset includes information such as brand, year, model, car/suv, title, used/new, transmission, engine, drive type, fuel type, fuel consumption, kilometres, colour (exterior/interior), location, cylinders in engine, body type, doors, seats, and price. The dataset has over 16,000 records of car listings from various online platforms in Australia.</p>
+            <h2 style='font-size: 2em;'>ℹ️ About Dataset</h2>
+            <p style='font-size: 1.25em;'><strong>Description:</strong> This dataset contains the latest information on car prices in Australia for the year 2023. It covers various brands, models, types, and features of cars sold in the Australian market. It provides useful insights into the trends and factors influencing the car prices in Australia. The dataset includes information such as brand, year, model, car/suv, title, used/new, transmission, engine, drive type, fuel type, fuel consumption, kilometres, colour (exterior/interior), location, cylinders in engine, body type, doors, seats, and price. The dataset has over 16,000 records of car listings from various online platforms in Australia.</p>
 
-            <h2>🔑 Key Features</h2>
-            <ul>
+            <h2 style='font-size: 2em;'>🔑 Key Features</h2>
+            <ul style='font-size: 1.25em;'>
                 <li><strong>Brand</strong>: 🚗 Name of the car manufacturer</li>
                 <li><strong>Year</strong>: 📅 Year of manufacture or release</li>
                 <li><strong>Model</strong>: 🏷️ Name or code of the car model</li>
@@ -74,8 +50,8 @@ if page == "Home":
                 <li><strong>Price</strong>: 💰 Price of the car (in Australian dollars)</li>
             </ul>
 
-            <h2>🚀 Potential Use Cases</h2>
-            <ul>
+            <h2 style='font-size: 2em;'>🚀 Potential Use Cases</h2>
+            <ul style='font-size: 1.25em;'>
                 <li><strong>Price prediction</strong>: Predict the price of a car based on its features and location using machine learning models.</li>
                 <li><strong>Market analysis</strong>: Explore the market trends and demand for different types of cars in Australia using descriptive statistics and visualization techniques.</li>
                 <li><strong>Feature analysis</strong>: Identify the most important features that affect car prices and how they vary across different brands, models, and locations using correlation and regression analysis.</li>
