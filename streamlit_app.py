@@ -52,9 +52,9 @@ if page == "Home":
 
             <h2 style='font-size: 2em;'>🚀 Potential Use Cases</h2>
             <ul style='font-size: 2em;'>
-                <li><strong>Price prediction</strong>: Predict the price of a car based on its features and location using machine learning models.</li>
-                <li><strong>Market analysis</strong>: Explore the market trends and demand for different types of cars in Australia using descriptive statistics and visualization techniques.</li>
-                <li><strong>Feature analysis</strong>: Identify the most important features that affect car prices and how they vary across different brands, models, and locations using correlation and regression analysis.</li>
+                <li style='font-size: 1.8em><strong>Price prediction</strong>: Predict the price of a car based on its features and location using machine learning models.</li>
+                <li style='font-size: 1.8em><strong>Market analysis</strong>: Explore the market trends and demand for different types of cars in Australia using descriptive statistics and visualization techniques.</li>
+                <li style='font-size: 1.8em><strong>Feature analysis</strong>: Identify the most important features that affect car prices and how they vary across different brands, models, and locations using correlation and regression analysis.</li>
             </ul>
             """,
             unsafe_allow_html=True,
