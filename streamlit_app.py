@@ -86,7 +86,7 @@ elif page == "Model":
     st.title("🤖 Model")
     
     # Load the model
-    model = load_model()
+    model = load_model_from_drive()
 
     # Input fields
     st.subheader("Enter Car Details:")
