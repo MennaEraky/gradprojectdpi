@@ -4,7 +4,7 @@ import pandas as pd
 
 def load_model():
     # Load model from Google Drive
-    model_id = 'YOUR_MODEL_FILE_ID'  # Replace with the actual file ID from Google Drive
+    model_id = '11btPBNR74na_NjjnjrrYT8RSf8ffiumo'  # Replace with the actual file ID from Google Drive
     url = f'https://drive.google.com/uc?id={model_id}'
     gdown.download(url, 'vehicle_price_model.pkl', quiet=False)
     with open('vehicle_price_model.pkl', 'rb') as file:
