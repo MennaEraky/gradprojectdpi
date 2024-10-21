@@ -31,7 +31,7 @@ if page == "Home":
     st.markdown("<h1>🚗 Australian Vehicle Prices</h1>", unsafe_allow_html=True)
 
     # Layout for text and image
-    col1, col2 = st.columns([2, 2])  # 2 parts for text, 1 part for image
+    col1, col2 = st.columns([2, 2])  # 2 parts for text, 2 parts for image
 
     with col1:
         st.markdown(
@@ -117,10 +117,12 @@ elif page == "Model":
         'Doors': doors
     }
 
-    if st.button("Predict Price"):
-        preprocessed_input = preprocess_input(input_data, model)
-        prediction = model.predict(preprocessed_input)
-        st.write(f"Predicted Price: ${prediction[0]:,.2f}")
-        visualize_correlations(preprocessed_input)
-        additional_visualizations(preprocessed_input)
-        visualize_model_performance()
+    # Make predictions automatically
+    preprocessed_input = preprocess_input(input_data, model)
+    prediction = model.predict(preprocessed_input)
+    st.write(f"Predicted Price: ${prediction[0]:,.2f}")
+
+    # Optional visualizations based on the prediction
+    visualize_correlations(preprocessed_input)
+    additional_visualizations(preprocessed_input)
+    visualize_model_performance()
