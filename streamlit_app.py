@@ -79,7 +79,7 @@ if page == "Home":
 
 elif page == "Visualizations":
     if __name__ == "__main__":
-        main()
+        main1()
 
 elif page == "Model":
     st.title("🤖 Model")
