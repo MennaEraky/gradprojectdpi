@@ -82,8 +82,5 @@ elif page == "Visualizations":
 
 elif page == "Model":
     st.title("🤖 Model")
-    
-
-
-if __name__ == "__main__":
-    main()
+    if __name__ == "__main__":
+        main()
