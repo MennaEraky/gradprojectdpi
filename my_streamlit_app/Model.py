@@ -192,7 +192,7 @@ def main():
             st.error(f"An error occurred during prediction: {e}")
 
 
-            visualize_model_performance()
+        visualize_model_performance()
 
 if __name__ == "__main__":
     main()
