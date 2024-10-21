@@ -23,15 +23,16 @@ if page == "Home":
         <style>
         .container {
             display: flex;
+            flex-direction: row;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
         }
         .text-content {
-            flex: 2;
+            flex: 3;
             margin-right: 20px;
         }
         .image {
-            flex: 1;
+            flex: 2;
             margin-left: 20px;
         }
         </style>
@@ -80,7 +81,7 @@ if page == "Home":
                 </ul>
             </div>
             <div class="image">
-                <img src="https://raw.githubusercontent.com/mohamedseif-10/Graduation-project-DEPI/main/web_app/Background.jpg" style="width: 100%; height: auto;">
+                <img src="https://raw.githubusercontent.com/mohamedseif-10/Graduation-project-DEPI/main/web_app/Background.jpg" style="width: 100%; height: auto; border-radius: 10px;">
             </div>
         </div>
         """,
