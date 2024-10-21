@@ -1,11 +1,6 @@
 import streamlit as st
 import pandas as pd
-import plotly.express as px
-import streamlit as st
-import pandas as pd
 import numpy as np
-import pickle
-import gdown
 import plotly.express as px
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import LabelEncoder
@@ -39,7 +34,6 @@ def show_visualizations(df):
     fig3 = px.box(df, x='FuelType', y='Price', title="Fuel Type vs Price")
     st.plotly_chart(fig3)
 
- 
 # Preprocess the input data
 def preprocess_input(data, model):
     input_df = pd.DataFrame(data, index=[0])  # Create DataFrame with an index
@@ -124,53 +118,18 @@ def additional_visualizations(df):
                           trendline='ols')
     st.plotly_chart(fig_fuel)
 
+# Load model from Google Drive
+def load_model_from_drive(model_file_id):
+    model_file_url = f"https://drive.google.com/uc?id={model_file_id}"
+    model_file_path = "model.pkl"
+    gdown.download(model_file_url, model_file_path, quiet=False)
+
+    with open(model_file_path, 'rb') as file:
+        model = pickle.load(file)
+    return model
 
 # Main Streamlit app
-# Main Streamlit app
-# Main Streamlit app
-def main1():
-    show_visualizations(df)
-    # Load model only once and store in session state
-    if 'model' not in st.session_state:
-        model_file_id = '11btPBNR74na_NjjnjrrYT8RSf8ffiumo'  # Google Drive file ID for model
-        st.session_state.model = load_model_from_drive(model_file_id)
-
-    # Make prediction automatically based on inputs
-    if st.session_state.model is not None:
-        input_data = {
-            'Year': year,
-            'UsedOrNew': used_or_new,
-            'Transmission': transmission,
-            'Engine': engine,
-            'DriveType': drive_type,
-            'FuelType': fuel_type,
-            'FuelConsumption': fuel_consumption,
-            'Kilometres': kilometres,
-            'CylindersinEngine': cylinders_in_engine,
-            'BodyType': body_type,
-            'Doors': doors
-        }
-        input_df = preprocess_input(input_data, st.session_state.model)
-
-        try:
-            prediction = st.session_state.model.predict(input_df)
-
-            # Styled prediction display
-            st.markdown(f"""
-                <div style="font-size: 24px; padding: 10px; background-color: #f0f4f8; border: 2px solid #3e9f7d; border-radius: 5px; text-align: center;">
-                    <strong>Predicted Price:</strong> ${prediction[0]:,.2f}
-                </div>
-            """, unsafe_allow_html=True)
-
-            # Displaying input data and prediction as a table
-            st.subheader("Input Data and Prediction")
-            input_data['Predicted Price'] = f"${prediction[0]:,.2f}"
-            input_df_display = pd.DataFrame(input_data, index=[0])
-            st.dataframe(input_df_display)
-
-        except Exception as e:
-            st.error(f"An error occurred during prediction: {e}")
-
+def main():
     # Load the dataset and preprocess it for visualization
     dataset_file = st.file_uploader("Upload a CSV file containing vehicle data 📂", type="csv")
     if dataset_file is not None:
@@ -178,10 +137,54 @@ def main1():
         if df is not None:
             df_cleaned = clean_data(df)
 
-            # Display visualizations
+            # Show visualizations
+            show_visualizations(df_cleaned)
             visualize_correlations(df_cleaned)
             additional_visualizations(df_cleaned)
-            visualize_model_performance()
+
+            # Load model only once and store in session state
+            if 'model' not in st.session_state:
+                model_file_id = '11btPBNR74na_NjjnjrrYT8RSf8ffiumo'  # Google Drive file ID for model
+                st.session_state.model = load_model_from_drive(model_file_id)
+
+            # Make prediction automatically based on inputs
+            if st.session_state.model is not None:
+                year = st.number_input("Year 📅", min_value=1900, max_value=2024, value=2020, key="year_input")
+                used_or_new = st.selectbox("Used or New 🚗", options=["Used", "New"], key="used_or_new_input")
+                transmission = st.selectbox("Transmission 🔧", options=["Automatic", "Manual"], key="transmission_input")
+                engine = st.number_input("Engine Size (L) 🔍", min_value=0.0, max_value=10.0, value=2.0, key="engine_input")
+                drive_type = st.selectbox("Drive Type 🚘", options=["FWD", "RWD", "AWD"], key="drive_type_input")
+                fuel_type = st.selectbox("Fuel Type ⛽", options=["Petrol", "Diesel"], key="fuel_type_input")
+                fuel_consumption = st.number_input("Fuel Consumption (L/100 km) 📏", min_value=0.0, value=8.0, key="fuel_consumption_input")
+                kilometres = st.number_input("Kilometres Driven (km) 🚦", min_value=0, value=50000, key="kilometres_input")
+                cylinders_in_engine = st.number_input("Number of Cylinders 🔥", min_value=1, max_value=12, value=4, key="cylinders_input")
+                body_type = st.selectbox("Body Type 🚙", options=["Sedan", "SUV", "Hatchback"], key="body_type_input")
+                doors = st.number_input("Number of Doors 🚪", min_value=2, max_value=5, value=4, key="doors_input")
+
+                input_data = {
+                    'Year': year,
+                    'UsedOrNew': used_or_new,
+                    'Transmission': transmission,
+                    'Engine': engine,
+                    'DriveType': drive_type,
+                    'FuelType': fuel_type,
+                    'FuelConsumption': fuel_consumption,
+                    'Kilometres': kilometres,
+                    'CylindersinEngine': cylinders_in_engine,
+                    'BodyType': body_type,
+                    'Doors': doors
+                }
+
+                input_df = preprocess_input(input_data, st.session_state.model)
+
+                try:
+                    prediction = st.session_state.model.predict(input_df)
+
+                    # Styled prediction display
+                    st.subheader("🛠️ Predicted Vehicle Price")
+                    st.write(f"The predicted price for the vehicle is: **AUD {prediction[0]:,.2f}**")
+                except Exception as e:
+                    st.error(f"Error making prediction: {str(e)}")
 
 if __name__ == "__main__":
-    main1()
+    main()
