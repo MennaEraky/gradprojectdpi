@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Load the dataset
-data_url = "path_to_your_file/Australian Vehicle Prices.csv"  # Update with your actual file path
+data_url = "Australian Vehicle Prices.csv"  # Update with your actual file path
 df = pd.read_csv(data_url)
 
 # Streamlit App Title
