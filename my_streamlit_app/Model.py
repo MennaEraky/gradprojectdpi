@@ -23,15 +23,27 @@ def load_model(model_file):
     # Replace this with the logic to load your model (e.g., TensorFlow, PyTorch, etc.)
     return RandomForestRegressor()  # Placeholder for your actual model loading code
 
-# Preprocess the input data
-def preprocess_input(data, model):
-    input_df = pd.DataFrame(data, index=[0])  # Create DataFrame with an index
-    input_df_encoded = pd.get_dummies(input_df, drop_first=True)
 
-    # Reindex to ensure it matches the model's expected input
-    model_features = model.feature_names_in_  # Get the features used during training
-    input_df_encoded = input_df_encoded.reindex(columns=model_features, fill_value=0)  # Fill missing columns with 0
-    return input_df_encoded
+def preprocess_input(input_data, model):
+    # Create a DataFrame from the input data
+    input_df = pd.DataFrame([input_data])
+    
+    # Ensure model features are retrieved safely
+    try:
+        model_features = model.feature_names_in_
+    except AttributeError:
+        # Define the feature names manually or retrieve them from your model setup
+        model_features = ['Year', 'UsedOrNew', 'Transmission', 'Engine', 
+                          'DriveType', 'FuelType', 'FuelConsumption', 
+                          'Kilometres', 'CylindersinEngine', 'BodyType', 'Doors']
+    
+    # Make sure the input DataFrame has the correct columns
+    input_df = input_df[model_features]
+    
+    # Preprocess the input as required (scaling, encoding, etc.)
+    # Example: if you have any scaling, you can apply it here
+    
+    return input_df
 
 # Data cleaning and preprocessing function
 def clean_data(df):
