@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from my_streamlit_app.Model import load_model, preprocess_input
+from my_streamlit_app.Model import load_model_from_drive, preprocess_input
 from my_streamlit_app.Visualizations import show_visualizations
 # Set page configuration
 st.set_page_config(
