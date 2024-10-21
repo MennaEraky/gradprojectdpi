@@ -16,7 +16,7 @@ if page == "Home":
     st.markdown("<h1 style='font-size: 2.5em;'>🚗 Australian Vehicle Prices</h1>", unsafe_allow_html=True)
 
     # Layout for text and image
-    col1, col2 = st.columns([2, 1])  # 2 parts for text, 1 part for image
+    col1, col2 = st.columns([2, 2])  # 2 parts for text, 1 part for image
 
     with col1:
         st.markdown(
