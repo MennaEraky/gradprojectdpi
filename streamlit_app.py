@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import os
 
+# Set page configuration
 st.set_page_config(
     page_title="Australian Vehicle Prices",
     page_icon=":car:",
@@ -90,3 +91,34 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
+
+# Feedback file location
+feedback_file = "feedback.csv"
+
+# Load existing feedback if the file exists
+if os.path.isfile(feedback_file):
+    feedback_df = pd.read_csv(feedback_file)
+else:
+    feedback_df = pd.DataFrame(columns=["Name", "Comments"])  # Create an empty DataFrame if file doesn't exist
+
+# Feedback form
+with st.form(key="feedback_form"):
+    name = st.text_input("Your Name")
+    comments = st.text_area("Your comments or suggestions about our web app and dataset", height=100)
+    submit_button = st.form_submit_button("Submit Feedback")
+
+    if submit_button:
+        # Create a new feedback entry
+        feedback_data = {
+            "Name": name,
+            "Comments": comments,
+        }
+        new_feedback_df = pd.DataFrame([feedback_data])
+
+        # Append new feedback to the existing DataFrame
+        feedback_df = pd.concat([feedback_df, new_feedback_df], ignore_index=True)
+
+        # Save the updated feedback DataFrame to the local CSV file
+        feedback_df.to_csv(feedback_file, index=False)
+
+        st.success("Thank you for your feedback! We appreciate your input.")
