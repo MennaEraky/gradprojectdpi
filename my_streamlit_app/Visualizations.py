@@ -128,7 +128,7 @@ def additional_visualizations(df):
 # Main Streamlit app
 # Main Streamlit app
 # Main Streamlit app
-def main():
+def main1():
     show_visualizations(df)
     # Load model only once and store in session state
     if 'model' not in st.session_state:
@@ -184,4 +184,4 @@ def main():
             visualize_model_performance()
 
 if __name__ == "__main__":
-    main()
+    main1()
