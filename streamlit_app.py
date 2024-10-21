@@ -74,7 +74,7 @@ if page == "Home":
         st.markdown('<div class="image-container">', unsafe_allow_html=True)
         st.image("https://raw.githubusercontent.com/MennaEraky/gradprojectdpi/main/porsche-911-sally-cars-1.jpg", use_column_width=True)
         st.markdown('</div>', unsafe_allow_html=True)
-    <h2>📊 Kaggle Dataset Link</h2>
+    <h2>Kaggle Dataset Link</h2>
     <p>"Dataset: [Australian Vehicle Prices on Kaggle](https://www.kaggle.com/datasets/nelgiriyewithana/australian-vehicle-prices)"</p>
 
 
