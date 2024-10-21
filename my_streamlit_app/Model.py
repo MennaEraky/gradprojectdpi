@@ -20,15 +20,39 @@ def load_model_from_drive(file_id):
         st.error(f"Error loading the model: {str(e)}")
         return None
 
+
 # Preprocess the input data
-def preprocess_input(data, model):
-    input_df = pd.DataFrame(data, index=[0])  # Create DataFrame with an index
+def preprocess_input(input_data, model):
+    # Create a DataFrame from the input data
+    df = pd.DataFrame([input_data])
+
+    # Replace certain values with NaN
+    df.replace(['POA', '-', '- / -'], np.nan, inplace=True)
+    
+    # Convert relevant columns to numeric
+    df['FuelConsumption'] = pd.to_numeric(df['FuelConsumption'], errors='coerce')
+    df['Doors'] = pd.to_numeric(df['Doors'], errors='coerce').fillna(0).astype(int)
+    df['CylindersinEngine'] = pd.to_numeric(df['CylindersinEngine'], errors='coerce').fillna(0).astype(int)
+    df['Engine'] = pd.to_numeric(df['Engine'], errors='coerce').fillna(0).astype(int)
+    
+    # Fill NaN values for specific columns
+    df.fillna(df.median(), inplace=True)
+    
+    # Drop unnecessary columns
+    df.drop(columns=['Brand', 'Model', 'Car/Suv', 'Title', 'Location', 'ColourExtInt', 'Seats'], inplace=True, errors='ignore')
+
+    # Label encoding for categorical features
+    label_encoder = LabelEncoder()
+    for col in df.select_dtypes(include=['object']).columns:
+        df[col] = label_encoder.fit_transform(df[col])
+        
     # One-Hot Encoding for categorical features based on the training model's features
-    input_df_encoded = pd.get_dummies(input_df, drop_first=True)
+    input_df_encoded = pd.get_dummies(df, drop_first=True)
 
     # Reindex to ensure it matches the model's expected input
     model_features = model.feature_names_in_  # Get the features used during training
     input_df_encoded = input_df_encoded.reindex(columns=model_features, fill_value=0)  # Fill missing columns with 0
+ 
     return input_df_encoded
 
 # Load the dataset from Google Drive
@@ -40,35 +64,6 @@ def load_dataset(file):
         st.error(f"Error loading dataset: {str(e)}")
         return None
 
-# Data cleaning and preprocessing function
-def clean_data(df):
-    # Replace certain values with NaN
-    df.replace(['POA', '-', '- / -'], np.nan, inplace=True)
-    
-    # Convert relevant columns to numeric
-    df['Price'] = pd.to_numeric(df['Price'], errors='coerce')
-    df['Kilometres'] = pd.to_numeric(df['Kilometres'], errors='coerce')
-    
-    # Extract numeric values from string columns
-    df['FuelConsumption'] = df['FuelConsumption'].str.extract(r'(\d+\.\d+)').astype(float)
-    df['Doors'] = df['Doors'].str.extract(r'(\d+)').fillna(0).astype(int)
-    df['Seats'] = df['Seats'].str.extract(r'(\d+)').fillna(0).astype(int)
-    df['CylindersinEngine'] = df['CylindersinEngine'].str.extract(r'(\d+)').fillna(0).astype(int)
-    df['Engine'] = df['Engine'].str.extract(r'(\d+)').fillna(0).astype(int)
-
-    # Fill NaN values for specific columns
-    df[['Kilometres', 'FuelConsumption']] = df[['Kilometres', 'FuelConsumption']].fillna(df[['Kilometres', 'FuelConsumption']].median())
-    df.dropna(subset=['Year', 'Price'], inplace=True)
-    
-    # Drop unnecessary columns
-    df.drop(columns=['Brand', 'Model', 'Car/Suv', 'Title', 'Location', 'ColourExtInt', 'Seats'], inplace=True)
-
-    # Label encoding for categorical features
-    label_encoder = LabelEncoder()
-    for col in df.select_dtypes(include=['object']).columns:
-        df[col] = label_encoder.fit_transform(df[col])
-    
-    return df
 
 # Create a function to visualize correlations
 def visualize_correlations(df):
@@ -210,8 +205,8 @@ def main():
         input_data_processed = preprocess_input(input_data, model)
 
         if st.button("Predict Price 💰"):
-            predicted_price = model.predict(input_data_processed)
-            st.success(f"Predicted Price: ${predicted_price[0]:,.2f}")
+            price = model.predict(input_data_processed)
+            st.success(f"Predicted Price: ${price[0]:,.2f}")
 
     # Load and clean dataset
     uploaded_file = st.file_uploader("Upload your dataset (CSV)", type=["csv"])
