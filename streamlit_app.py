@@ -150,3 +150,137 @@ elif page == "Visualizations":
 elif page == "Model":
     st.title("🤖 Model")
     st.write("This page will contain the model for predicting car prices.")
+
+    # Load model from Google Drive
+    def load_model_from_drive(file_id):
+        url = f'https://drive.google.com/uc?id={file_id}'
+        gdown.download(url, 'model.pkl', quiet=False)
+        with open('model.pkl', 'rb') as file:
+            model = pickle.load(file)
+        return model
+
+    # Load dataset
+    def load_dataset(file):
+        return pd.read_csv(file)
+
+    # Clean dataset
+    def clean_data(df):
+        df['Price'] = pd.to_numeric(df['Price'], errors='coerce')
+        return df.dropna()
+
+    # Preprocess input data
+    def preprocess_input(input_data, model):
+        input_df = pd.DataFrame([input_data])
+        return input_df  # Modify according to your preprocessing
+
+    # Visualize correlations
+    def visualize_correlations(df):
+        st.subheader("Feature Correlation Heatmap")
+        corr_matrix = df.corr()
+        fig = px.imshow(corr_matrix, text_auto=True, aspect="auto")
+        st.plotly_chart(fig)
+
+    # Visualize model performance metrics
+    def visualize_model_performance():
+        models = [
+            "LinearRegression",
+            "Ridge",
+            "Lasso",
+            "ElasticNet",
+            "DecisionTreeRegressor",
+            "RandomForestRegressor",
+            "GradientBoostingRegressor",
+            "SVR",
+            "KNeighborsRegressor",
+            "MLPRegressor",
+            "AdaBoostRegressor",
+            "BaggingRegressor",
+            "ExtraTreesRegressor"
+        ]
+
+        scores = [
+            [0.38643429, 0.35310009, 0.36801071],
+            [0.38620243, 0.35350286, 0.36843282],
+            [0.38620616, 0.35349711, 0.36843277],
+            [0.33686675, 0.31415677, 0.32787848],
+            [0.62213917, 0.40638212, 0.47242902],
+            [0.74799343, 0.70412406, 0.70161075],
+            [0.73002938, 0.70887856, 0.70533151],
+            [-0.03261018, -0.05532926, -0.05188942],
+            [0.64170728, 0.63380643, 0.64356449],
+            [-0.38015855, -0.41194531, -0.41229902],
+            [0.0021934, -0.43429876, -0.28546934],
+            [0.72923447, 0.70932019, 0.67318744],
+            [0.74919345, 0.70561132, 0.68979889]
+        ]
+
+        mean_scores = [np.mean(score) for score in scores]
+        
+        # Create DataFrame for plotting
+        performance_df = pd.DataFrame({
+            'Model': models,
+            'Mean CrossVal Score': mean_scores
+        })
+        
+        max_accuracy_model = performance_df.loc[performance_df['Mean CrossVal Score'].idxmax()]
+
+        # Plot the performance
+        st.subheader("Model Performance Comparison")
+        fig_performance = px.bar(performance_df, x='Model', y='Mean CrossVal Score', 
+                                  title='Mean CrossVal Score of Regression Models', 
+                                  labels={'Mean CrossVal Score': 'Mean CrossVal Score'},
+                                  color='Mean CrossVal Score', 
+                                  color_continuous_scale=px.colors.sequential.Viridis)
+        st.plotly_chart(fig_performance)
+
+        # Display model with largest accuracy
+        st.markdown(f"""
+            <div style="font-size: 20px; padding: 10px; background-color: #e8f5e9; border: 2px solid #4caf50; border-radius: 5px;">
+                <strong>Best Model:</strong> {max_accuracy_model['Model']} with Mean CrossVal Score: {max_accuracy_model['Mean CrossVal Score']:.2f}
+            </div>
+        """, unsafe_allow_html=True)
+
+    # Load the model only once and store it in session state
+    if 'model' not in st.session_state:
+        model_file_id = '11btPBNR74na_NjjnjrrYT8RSf8ffiumo'  # Google Drive file ID for model
+        st.session_state.model = load_model_from_drive(model_file_id)
+
+    # Input form for vehicle details
+    st.subheader("Input Vehicle Details for Price Prediction")
+    input_data = {
+        'Year': st.number_input("Year 📅", min_value=1900, max_value=2024, value=2020),
+        'UsedOrNew': st.selectbox("Used or New 🏷", ["Used", "New"]),
+        'Transmission': st.selectbox("Transmission ⚙", ["Manual", "Automatic"]),
+        'Engine': st.number_input("Engine Size (L) 🔧", min_value=0.0, value=2.0, step=0.1),
+        'DriveType': st.selectbox("Drive Type 🛣", ["FWD", "RWD", "AWD"]),
+        'FuelType': st.selectbox("Fuel Type ⛽", ["Petrol", "Diesel", "Electric", "Hybrid"]),
+        'FuelConsumption': st.number_input("Fuel Consumption (L/100km) ⛽", min_value=0.0, value=8.0, step=0.1),
+        'Kilometres': st.number_input("Kilometres 🛣", min_value=0, value=50000, step=1000),
+        'CylindersinEngine': st.number_input("Cylinders in Engine 🔢", min_value=1, value=4),
+        'BodyType': st.selectbox("Body Type 🚙", ["Sedan", "SUV", "Hatchback", "Coupe", "Convertible"]),
+        'Doors': st.selectbox("Number of Doors 🚪", [2, 3, 4, 5])
+    }
+
+    # Make prediction and display results
+    if st.button("Predict Price"):
+        input_df = preprocess_input(input_data, st.session_state.model)
+        try:
+            prediction = st.session_state.model.predict(input_df)
+            st.markdown(f"<h3>Predicted Price: ${prediction[0]:,.2f}</h3>", unsafe_allow_html=True)
+
+            # Display input data and prediction as a table
+            input_data['Predicted Price'] = f"${prediction[0]:,.2f}"
+            st.dataframe(pd.DataFrame(input_data, index=[0]))
+
+        except Exception as e:
+            st.error(f"An error occurred during prediction: {e}")
+
+    # Load the dataset and visualize correlations
+    dataset_file = st.file_uploader("Upload a CSV file containing vehicle data 📂", type="csv")
+    if dataset_file is not None:
+        df = load_dataset(dataset_file)
+        df_cleaned = clean_data(df)
+
+        # Display visualizations
+        visualize_correlations(df_cleaned)
+        visualize_model_performance()
