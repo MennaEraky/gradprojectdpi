@@ -149,7 +149,6 @@ elif page == "Visualizations":
 
 elif page == "Model":
     st.title("🤖 Model")
-    st.write("This page will contain the model for predicting car prices.")
 
     # Load model from Google Drive
     def load_model_from_drive(file_id):
