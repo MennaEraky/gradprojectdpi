@@ -192,15 +192,12 @@ def main():
             st.error(f"An error occurred during prediction: {e}")
 
     # Load the dataset and preprocess it for visualization
-    dataset_file = st.file_uploader("Upload a CSV file containing vehicle data 📂", type="csv")
     if dataset_file is not None:
         df = load_dataset(dataset_file)
         if df is not None:
             df_cleaned = clean_data(df)
 
             # Display visualizations
-            visualize_correlations(df_cleaned)
-            additional_visualizations(df_cleaned)
             visualize_model_performance()
 
 if __name__ == "__main__":
