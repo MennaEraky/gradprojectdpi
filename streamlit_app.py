@@ -44,6 +44,9 @@ st.markdown(
 st.sidebar.title("Navigation")
 page = st.sidebar.radio("Go to", ["Home", "Visualizations", "Model"])
 
+# Add a link to the dataset
+st.sidebar.markdown("Dataset: [Australian Vehicle Prices on Kaggle](https://www.kaggle.com/datasets/nelgiriyewithana/australian-vehicle-prices)")
+
 # Load the dataset
 # Load the dataset
 data_url = "Australian Vehicle Prices.csv"  # Update with your actual file path
@@ -65,7 +68,7 @@ if page == "Home":
     st.markdown("<h1>🚗 Australian Vehicle Prices</h1>", unsafe_allow_html=True)
 
     # Layout for text and image
-    col1, col2 = st.columns([2, 1])  # 2 parts for text, 1 part for image
+    col1, col2 = st.columns([2, 12)  # 2 parts for text, 1 part for image
 
     with col1:
         st.markdown(
@@ -142,11 +145,7 @@ elif page == "Visualizations":
     engine_type_counts = df['Engine'].value_counts().head(10)  # Show top 10
     st.bar_chart(engine_type_counts)
 
-    # Filter Options
-    st.sidebar.header("Filter Options")
-    car_brand = st.sidebar.selectbox("Select Car Brand", options=df['Brand'].unique())
-    filtered_data = df[df['Brand'] == car_brand]
-    st.dataframe(filtered_data)
+
 
 elif page == "Model":
     st.title("🤖 Model")
