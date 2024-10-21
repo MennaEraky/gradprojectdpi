@@ -65,8 +65,8 @@ if page == "Home":
                 <li><strong>Market analysis</strong>: Explore the market trends and demand for different types of cars in Australia using descriptive statistics and visualization techniques.</li>
                 <li><strong>Feature analysis</strong>: Identify the most important features that affect car prices and how they vary across different brands, models, and locations using correlation and regression analysis.</li>
             </ul>
-            <h2>Kaggle Dataset Link</h2>
-            <p>Dataset: <a href="https://www.kaggle.com/datasets/nelgiriyewithana/australian-vehicle-prices" target="_blank">Australian Vehicle Prices on Kaggle</a></p>
+            <h2>🔗 Kaggle Dataset Link</h2>
+            <pstyle="font-size: 16px;>Dataset: <a href="https://www.kaggle.com/datasets/nelgiriyewithana/australian-vehicle-prices" target="_blank">Australian Vehicle Prices on Kaggle</a></p>
             """,
             unsafe_allow_html=True,
         )
