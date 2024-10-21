@@ -91,18 +91,20 @@ elif page == "Model":
     # Input fields
     st.subheader("Enter Car Details:")
     input_data = {}
-    input_data['Year'] = st.number_input("Year", min_value=2000, max_value=2024, value=2020)
-    input_data['UsedOrNew'] = st.selectbox("Condition", options=["Used", "New"])
-    input_data['Transmission'] = st.selectbox("Transmission", options=["Manual", "Automatic"])
-    input_data['Engine'] = st.number_input("Engine (L)", min_value=0.0, max_value=10.0, value=1.5)
-    input_data['DriveType'] = st.selectbox("Drive Type", options=["Front", "Rear", "All"])
-    input_data['FuelType'] = st.selectbox("Fuel Type", options=["Petrol", "Diesel", "Hybrid", "Electric"])
-    input_data['FuelConsumption'] = st.number_input("Fuel Consumption (L/100km)", min_value=0.0, value=8.0)
-    input_data['Kilometres'] = st.number_input("Kilometres Driven", min_value=0, value=0)
-    input_data['CylindersinEngine'] = st.number_input("Cylinders in Engine", min_value=1, max_value=16, value=4)
-    input_data['BodyType'] = st.selectbox("Body Type", options=["Sedan", "Hatchback", "Coupe", "SUV", "Wagon", "Ute"])
-    input_data['Doors'] = st.number_input("Number of Doors", min_value=2, max_value=5, value=4)
-
+ # Create input data dictionary
+    input_data = {
+        'Year': year,
+        'UsedOrNew': used_or_new,
+        'Transmission': transmission,
+        'Engine': engine,
+        'DriveType': drive_type,
+        'FuelType': fuel_type,
+        'FuelConsumption': fuel_consumption,
+        'Kilometres': kilometres,
+        'CylindersinEngine': cylinders_in_engine,
+        'BodyType': body_type,
+        'Doors': doors
+    }
     if st.button("Predict Price"):
         preprocessed_input = preprocess_input(input_data, model)
         prediction = model.predict(preprocessed_input)
