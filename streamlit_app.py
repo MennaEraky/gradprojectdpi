@@ -45,7 +45,8 @@ st.sidebar.title("Navigation")
 page = st.sidebar.radio("Go to", ["Home", "Visualizations", "Model"])
 
 # Load the dataset
-data_url = "https://drive.google.com/uc?id=1BMO9pcLUsx970KDTw1kHNkXg2ghGJVBs"  # Update with your actual file path
+data_url = "Australian Vehicle Prices.csv"
+  # Update with your actual file path
 df = pd.read_csv(data_url)
 
 # Main content based on the selected page
