@@ -6,7 +6,6 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import LabelEncoder
 
 def show_visualizations(df):
-    st.title("📈 Visualizations")
     st.write("This page will contain visualizations based on the dataset.")
 
     # Show dataset information
