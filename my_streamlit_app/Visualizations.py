@@ -153,9 +153,10 @@ def mainn():
             df_cleaned = clean_data(df)
 
             # Show visualizations
-            show_price(df)
+           
             show_visualizations(df_cleaned)
             additional_visualizations(df_cleaned)
+            show_price(df)
             visualize_correlations(df_cleaned)
 
         
