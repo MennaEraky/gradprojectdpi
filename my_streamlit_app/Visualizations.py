@@ -145,5 +145,5 @@ def mainn():
 
             
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     mainn()
