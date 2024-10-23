@@ -4,7 +4,18 @@ import numpy as np
 import plotly.express as px
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import LabelEncoder
+def show_price(df):
+    """Calculate the logarithmic transformation of the Price column."""
+    DF_NEW=df.copy()
+    df['Price_log'] = np.log1p(df['Price'])
+    # Visualization: Price Distribution 
+    st.subheader("Price Distribution Before scaling")
+    fig2 = px.histogram(DF_NEW, x='Price', nbins=30, title="Price Distribution", labels={'Price': 'Price in AUD'})
+    st.plotly_chart(fig2)
 
+    st.subheader("Price Distribution After Scaling")
+    fig2 = px.histogram(DF_NEW, x='Price', nbins=30, title="Price Distribution", labels={'Price': 'Price in AUD'})
+    st.plotly_chart(fig2)
 def show_visualizations(df):
     st.write("This page will contain visualizations based on the dataset.")
 
@@ -22,11 +33,6 @@ def show_visualizations(df):
     car_type_counts = df['BodyType'].value_counts()
     fig = px.bar(car_type_counts, x=car_type_counts.index, y=car_type_counts.values, title="Distribution of Car Types")
     st.plotly_chart(fig)
-
-    # Visualization: Price Distribution
-    st.subheader("Price Distribution")
-    fig2 = px.histogram(df, x='Price', nbins=30, title="Price Distribution", labels={'Price': 'Price in AUD'})
-    st.plotly_chart(fig2)
 
     # Visualization: Fuel Type vs Price
     # st.subheader("Fuel Type vs Price")
@@ -137,6 +143,7 @@ def mainn():
             df_cleaned = clean_data(df)
 
             # Show visualizations
+            show_price(df)
             show_visualizations(df_cleaned)
             additional_visualizations(df_cleaned)
             visualize_correlations(df_cleaned)
