@@ -5,35 +5,27 @@ import plotly.express as px
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import LabelEncoder
 def show_price(df):
-    DF_NEW=df.copy()
-    """Calculate the logarithmic transformation of the Price column."""   
-    DF_NEW.replace(['POA', '-', '- / -'], np.nan, inplace=True)
+    DF_NEW = df.copy()
     
-    # Convert relevant columns to numeric
+    # Data cleaning and preparation
+    DF_NEW.replace(['POA', '-', '- / -'], np.nan, inplace=True)
     DF_NEW['Price'] = pd.to_numeric(DF_NEW['Price'], errors='coerce')
     DF_NEW['Kilometres'] = pd.to_numeric(DF_NEW['Kilometres'], errors='coerce')
-    
-
-
-    # Fill NaN values for specific columns
     DF_NEW.dropna(subset=['Year', 'Price'], inplace=True)
     
-    # Drop unnecessary columns
-
-    # Label encoding for categorical features
-    label_encoder = LabelEncoder()
-    for col in df.select_dtypes(include=['object']).columns:
-        DF_NEW[col] = label_encoder.fit_transform(DF_NEW[col])
-    DF_NEW=df.copy()
+    # Log transformation
     DF_NEW['Price_log'] = np.log1p(DF_NEW['Price'])
-    # Visualization: Price Distribution 
-    st.subheader("Price Distribution Before scaling")
+    
+    # Visualization: Price Distribution Before scaling
+    st.subheader("Price Distribution Before Scaling")
     fig2 = px.histogram(DF_NEW, x='Price', nbins=30, title="Price Distribution", labels={'Price': 'Price in AUD'})
     st.plotly_chart(fig2)
 
-    st.subheader("Price Distribution After Scaling")
-    fig2 = px.histogram(DF_NEW, x='Price', nbins=30, title="Price Distribution", labels={'Price': 'Price in AUD'})
-    st.plotly_chart(fig2)
+    # Visualization: Price Distribution After Scaling
+    st.subheader("Price Distribution After Scaling (Log Transformation)")
+    fig_log = px.histogram(DF_NEW, x='Price_log', nbins=30, title="Log Price Distribution", labels={'Price_log': 'Log Price in AUD'})
+    st.plotly_chart(fig_log)
+
 def show_visualizations(df):
     st.write("This page will contain visualizations based on the dataset.")
 
