@@ -67,7 +67,6 @@ if page == "Home":
             </ul>
             <h2>🔗 Kaggle Dataset Link</h2>
             <p style="font-size: 20px;">Dataset: <a href="https://www.kaggle.com/datasets/nelgiriyewithana/australian-vehicle-prices" target="_blank">Australian Vehicle Prices on Kaggle</a></p>
-
             """,
             unsafe_allow_html=True,
         )
@@ -79,10 +78,8 @@ if page == "Home":
 
 elif page == "Visualizations":
     st.title("📈 Visualizations")
-    if __name__ == "__main__":
-        mainn()
+    mainn()  # Call the function directly without the __name__ check
 
 elif page == "Model":
     st.title("🤖 Model")
-    if __name__ == "__main__":
-        main()
+    main()  # Call the function directly without the __name__ check
