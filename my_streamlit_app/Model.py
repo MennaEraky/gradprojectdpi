@@ -69,7 +69,6 @@ def clean_data(df):
     
     return df
 
-
 def visualize_model_performance():
     models = [
         "LinearRegression",
@@ -86,7 +85,7 @@ def visualize_model_performance():
         "BaggingRegressor",
         "ExtraTreesRegressor"
     ]
-    
+
     scores = [
         [0.38643429, 0.35310009, 0.36801071],
         [0.38620243, 0.35350286, 0.36843282],
@@ -102,15 +101,15 @@ def visualize_model_performance():
         [0.72923447, 0.70932019, 0.67318744],
         [0.74919345, 0.70561132, 0.68979889]
     ]
-    
+
     mean_scores = [np.mean(score) for score in scores]
-    
+
     # Create DataFrame for plotting
     performance_df = pd.DataFrame({
         'Model': models,
         'Mean CrossVal Score': mean_scores
     })
-    
+
     max_accuracy_model = performance_df.loc[performance_df['Mean CrossVal Score'].idxmax()]
 
     # Plot the performance
@@ -121,7 +120,7 @@ def visualize_model_performance():
                               color='Mean CrossVal Score', 
                               color_continuous_scale=px.colors.sequential.Viridis)
     st.plotly_chart(fig_performance)
-    
+
     # Display model with largest accuracy
     st.markdown(f"""
         <div style="font-size: 20px; padding: 10px; background-color: #e8f5e9; border: 2px solid #4caf50; border-radius: 5px;">
@@ -129,9 +128,15 @@ def visualize_model_performance():
         </div>
     """, unsafe_allow_html=True)
 
-# Main Streamlit app
-# Main Streamlit app
-# Main Streamlit app
+    # Display the performance matrix
+    st.subheader("Model Performance Matrix")
+    performance_matrix = pd.DataFrame({
+        'Model': models,
+        'Final Score': mean_scores
+    })
+    
+    st.dataframe(performance_matrix.style.highlight_max(axis=0))
+
 def main():
     col1, col2 = st.columns(2)
 
