@@ -6,6 +6,14 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import LabelEncoder
 import gdown
 import pickle
+# Load the dataset from Google Drive
+def load_dataset(file):
+    try:
+        df = pd.read_csv(file)
+        return df
+    except Exception as e:
+        st.error(f"Error loading dataset: {str(e)}")
+        return None
 
 # Function to log transform price
 def log_transform_price(df):
