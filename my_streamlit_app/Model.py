@@ -71,43 +71,44 @@ def clean_data(df):
 
 
 def visualize_model_performance():
-   models = [
-    "LinearRegression",
-    "Ridge",
-    "Lasso",
-    "ElasticNet",
-    "DecisionTreeRegressor",
-    "RandomForestRegressor",
-    "GradientBoostingRegressor",
-    "SVR",
-    "KNeighborsRegressor",
-    "MLPRegressor",
-    "AdaBoostRegressor",
-    "BaggingRegressor",
-    "ExtraTreesRegressor"
-]
-
-scores = [
-    [0.33421422],  # LinearRegression
-    [0.33421572],  # Ridge
-    [0.33421641],  # Lasso
-    [0.31357695],  # ElasticNet
-    [0.46665782],  # DecisionTreeRegressor
-    [0.73068251],  # RandomForestRegressor
-    [0.71817547],  # GradientBoostingRegressor
-    [-0.04824173], # SVR
-    [0.59936183],  # KNeighborsRegressor
-    [-0.39404082], # MLPRegressor
-    [-0.40771438], # AdaBoostRegressor
-    [0.70523721],  # BaggingRegressor
-    [0.74553402]   # ExtraTreesRegressor
-]
+    models = [
+        "LinearRegression",
+        "Ridge",
+        "Lasso",
+        "ElasticNet",
+        "DecisionTreeRegressor",
+        "RandomForestRegressor",
+        "GradientBoostingRegressor",
+        "SVR",
+        "KNeighborsRegressor",
+        "MLPRegressor",
+        "AdaBoostRegressor",
+        "BaggingRegressor",
+        "ExtraTreesRegressor"
+    ]
     
+    scores = [
+          [0.38643429, 0.35310009, 0.36801071],
+        [0.38620243, 0.35350286, 0.36843282],
+        [0.38620616, 0.35349711, 0.36843277],
+        [0.33686675, 0.31415677, 0.32787848],
+        [0.62213917, 0.40638212, 0.47242902],
+        [0.74799343, 0.70412406, 0.70161075],
+        [0.73002938, 0.70887856, 0.70533151],
+        [-0.03261018, -0.05532926, -0.05188942],
+        [0.64170728, 0.63380643, 0.64356449],
+        [-0.38015855, -0.41194531, -0.41229902],
+        [0.0021934, -0.43429876, -0.28546934],
+        [0.72923447, 0.70932019, 0.67318744],
+        [0.74919345, 0.70561132, 0.68979889]
+    ]
+    
+    mean_scores = [np.mean(score) for score in scores]
     
     # Create DataFrame for plotting
     performance_df = pd.DataFrame({
         'Model': models,
-        'Mean CrossVal Score': scores
+        'Mean CrossVal Score': mean_scores
     })
     
     max_accuracy_model = performance_df.loc[performance_df['Mean CrossVal Score'].idxmax()]
@@ -195,4 +196,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-add to this code
