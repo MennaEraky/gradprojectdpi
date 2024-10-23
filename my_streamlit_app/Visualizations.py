@@ -5,9 +5,27 @@ import plotly.express as px
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import LabelEncoder
 def show_price(df):
-    """Calculate the logarithmic transformation of the Price column."""
     DF_NEW=df.copy()
-    df['Price_log'] = np.log1p(df['Price'])
+    """Calculate the logarithmic transformation of the Price column."""   
+    DF_NEW.replace(['POA', '-', '- / -'], np.nan, inplace=True)
+    
+    # Convert relevant columns to numeric
+    DF_NEW['Price'] = pd.to_numeric(DF_NEW['Price'], errors='coerce')
+    DF_NEW['Kilometres'] = pd.to_numeric(DF_NEW['Kilometres'], errors='coerce')
+    
+
+
+    # Fill NaN values for specific columns
+    DF_NEW.dropna(subset=['Year', 'Price'], inplace=True)
+    
+    # Drop unnecessary columns
+
+    # Label encoding for categorical features
+    label_encoder = LabelEncoder()
+    for col in df.select_dtypes(include=['object']).columns:
+        DF_NEW[col] = label_encoder.fit_transform(DF_NEW[col])
+    DF_NEW=df.copy()
+    DF_NEW['Price_log'] = np.log1p(DF_NEW['Price'])
     # Visualization: Price Distribution 
     st.subheader("Price Distribution Before scaling")
     fig2 = px.histogram(DF_NEW, x='Price', nbins=30, title="Price Distribution", labels={'Price': 'Price in AUD'})
